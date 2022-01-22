@@ -17,7 +17,8 @@ from tkinter import ttk,messagebox
 import textblob
 import randfacts
 from gtts import gTTS
-
+from stemsim import *
+from testing2 import *
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 # print(voices[1].id)
@@ -70,7 +71,9 @@ if __name__ == "__main__":
 
 
 
-
+        if 'simulation' in query:
+            speak('Opening simulation...')
+            simulate()
 
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
@@ -292,7 +295,7 @@ I would very much like to be of such performance and skill not only in football 
             
             
 
-        elif 'translator' in query:
+        '''elif 'translator' in query:
             root = Tk()
             root.title('Assistas translator')
             root.iconbitmap(r'C:\Users\Sahil\Downloads\LOGO.png')
@@ -370,7 +373,10 @@ I would very much like to be of such performance and skill not only in football 
                         clear_button = Button(root, text="Clear", command=clear)
                         clear_button.grid(row=2, column=1)
 
-                        root.mainloop()
+                        root.mainloop()'''
+        if 'translator' in query:
+            translator()
+
             
 
 
