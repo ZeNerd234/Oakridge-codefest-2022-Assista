@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import sys
 pygame.init()
 vec=pygame.math.Vector2
 clock=pygame.time.Clock()
@@ -11,6 +12,7 @@ red=(255,0,0)
 blue=(30,144,255)
 white=(255,255,255)
 yellow=(255,255,0)
+grey=(192,192,192)
 screen=pygame.display.set_mode((600,600))
 WIDTH=screen.get_width()
 HEIGHT=screen.get_height()
@@ -34,12 +36,13 @@ class Body(pygame.sprite.Sprite):
         self.vel=vec(velocity)
         self.acc=vec(acceleration)
         self.ACC=fixed_acc
+        self.jumping=False
 
         
-    def changevel(self,surface, surf):
+    def changevel(self,surface):
         if pygame.sprite.spritecollideany(self,surface):
             if self.vel.y!=0:
-                self.vel.y = -self.vel.y-surf.bounce
+                self.vel.y =0
 
             
 
@@ -55,9 +58,10 @@ class Body(pygame.sprite.Sprite):
             self.pos += self.vel + 0.5 * self.acc
             self.rect.bottomright=self.pos
         if self.rect.x<0:
-            self.rect.x=WIDTH
+            self.rect.move_ip(5,0)
         if self.rect.x>WIDTH:
-            self.rect.x=0
+            self.rect.move_ip(-5,0)
+
         
                 
         
@@ -70,7 +74,7 @@ w=font.render('Wood',True,black)
 g=font.render('Glass',True,black)
 s=font.render('Sand',True,black)
 b=Body(vec(0,0),vec(0,0),(50,HEIGHT-20),green,(30,30))
-wood=FrictionSurf(brown,-0.1,0.1)
+wood=FrictionSurf(brown,-0.5,0.1)
 b.friction=wood.friction
 sprites=pygame.sprite.Group(b)
 obs=pygame.sprite.Group(wood)
@@ -79,14 +83,19 @@ while True:
     for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
-            quit()
+            sys.quit()
         '''if event.type==KEYDOWN:
             if event.key==K_UP:'''
         if event.type==MOUSEBUTTONDOWN:
             if 50<mouse[0]<100 and 50<mouse[1]<70:
-                wood=FrictionSurf(brown,-0.1,0.1)
+                wood=FrictionSurf(brown,-0.5,0.1)
                 b.friction=wood.friction
-            
+            if 150<mouse[0]<210 and 50<mouse[1]<70:
+                wood=FrictionSurf(blue,-0.2,0.5)
+                b.friction=wood.friction
+            if 250<mouse[0]<300 and 50<mouse[1]<70:
+                wood=FrictionSurf(yellow, -0.7,0.7)
+                b.friction=wood.friction
     
     screen.fill(white)
     pygame.draw.rect(screen,blue,[50,50,50,20])
@@ -97,7 +106,7 @@ while True:
     screen.blit(s,(250,50))
     mouse=pygame.mouse.get_pos()
     b.move()
-    b.changevel(obs,wood)
+    b.changevel(obs)
     screen.blit(wood.surf,wood.rect)
     for sprite in sprites:
         screen.blit(sprite.surf,sprite.rect)
