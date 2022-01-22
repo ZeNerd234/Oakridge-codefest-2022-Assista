@@ -1,5 +1,8 @@
-import math
+#CACLULATER
 
+#importing the function math to do the sums
+import math
+#writing the code by defining functions and storing the output
 def sq(n):
     return (n*n)
 
@@ -130,6 +133,7 @@ def divide(n):
     x=float(input("Put dividend here:  "))
     return (n/x)
 
+#doing commands when user uses this calc
 def calc(imput,n):
     if imput == 'sq':
         return sq(n)
