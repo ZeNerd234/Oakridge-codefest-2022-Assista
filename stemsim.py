@@ -69,6 +69,7 @@ def simulate():
     yellow=(255,255,0)
     grey=(192,192,192)
     screen=pygame.display.set_mode((600,600))
+    pygame.display.set_caption('Friction simulation')
     WIDTH=screen.get_width()
     HEIGHT=screen.get_height()
     sprites=pygame.sprite.Group()
