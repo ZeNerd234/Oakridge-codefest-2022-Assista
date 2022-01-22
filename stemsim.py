@@ -36,11 +36,10 @@ class Body(pygame.sprite.Sprite):
         self.ACC=fixed_acc
 
         
-    def changevel(self,surface):
+    def changevel(self,surface, surf):
         if pygame.sprite.spritecollideany(self,surface):
-            self.friction=-0.1
             if self.vel.y!=0:
-                self.vel.y = -self.vel.y-surface.bounce
+                self.vel.y = -self.vel.y-surf.bounce
 
             
 
@@ -72,6 +71,7 @@ g=font.render('Glass',True,black)
 s=font.render('Sand',True,black)
 b=Body(vec(0,0),vec(0,0),(50,HEIGHT-20),green,(30,30))
 wood=FrictionSurf(brown,-0.1,0.1)
+b.friction=wood.friction
 sprites=pygame.sprite.Group(b)
 obs=pygame.sprite.Group(wood)
 b.friction=wood.friction
@@ -82,6 +82,10 @@ while True:
             quit()
         '''if event.type==KEYDOWN:
             if event.key==K_UP:'''
+        if event.type==MOUSEBUTTONDOWN:
+            if 50<mouse[0]<100 and 50<mouse[1]<70:
+                wood=FrictionSurf(brown,-0.1,0.1)
+                b.friction=wood.friction
             
     
     screen.fill(white)
@@ -91,8 +95,9 @@ while True:
     screen.blit(g,(150,50))
     pygame.draw.rect(screen,blue,[250,50,50,20])
     screen.blit(s,(250,50))
+    mouse=pygame.mouse.get_pos()
     b.move()
-    b.changevel(obs)
+    b.changevel(obs,wood)
     screen.blit(wood.surf,wood.rect)
     for sprite in sprites:
         screen.blit(sprite.surf,sprite.rect)
