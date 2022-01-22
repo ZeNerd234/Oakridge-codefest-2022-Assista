@@ -73,6 +73,7 @@ if __name__ == "__main__":
 
         if 'simulation' in query:
             speak('Opening simulation...')
+            time.sleep(1)
             simulate()
 
         if 'wikipedia' in query:
