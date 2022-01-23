@@ -139,7 +139,7 @@ if __name__ == "__main__":
             testing2()
             
 
-        elif 'Recommend Me A Good Youtube Channel to watch' in query:
+        elif 'recommend me a good youtube channel to watch' in query:
             speak("Bright Side is a really good channel. It has various videos ranging from riddles to VR 360 roller coaster rides! Please check it out")
             webbrowser.open("https://www.youtube.com/channel/UC4rlAVgAK0SGk-yTfe48Qpw")
 
