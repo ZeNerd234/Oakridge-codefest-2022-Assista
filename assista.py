@@ -132,11 +132,11 @@ if __name__ == "__main__":
         elif 'open freecodecamp' in query:
             webbrowser.open("freecodecamp.org")
         elif 'open simulator' in query:
+            from stemsim import *
             stemsim()
 
         elif 'open Translator' in query:
-            speak("Opening Translator")
-            testing2()
+            from testing 2 import *
             
 
         elif 'recommend me a good youtube channel to watch' in query:
